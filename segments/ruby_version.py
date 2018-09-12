@@ -1,12 +1,14 @@
+import subprocess
 import os
+from ..utils import ThreadedSegment
 
-def add_ruby_version_segment():
-    ruby_version = os.getenv('RUBY_VERSION')
-    if ruby_version is None:
-        return
 
-    bg = 148
-    fg = 0
-    powerline.append(' %s ' % ruby_version, fg, bg)
+class Segment(ThreadedSegment):
+    def add_to_powerline(self):
+        ruby_version = os.getenv('RUBY_VERSION')
+        if ruby_version is None:
+            return
 
-add_ruby_version_segment()
+        bg = 148
+        fg = 0
+        self.powerline.append(' %s ' % ruby_version, fg, bg)
